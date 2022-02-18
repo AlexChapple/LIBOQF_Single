@@ -1,20 +1,9 @@
 ! Simulation of the quantum system using quantum trajectories and the SDW model. 
-! This is the HEAD file. 
+! This file is for the case where only one photon is in the system 
 ! 
 ! Author: Alex Chapple 
 
 program main
-
-    ! ----------------------------------------------------------------------------------
-    ! 
-    ! This runs the simulation, and writes to separate files the spin statistics,
-    ! photon counting distribution, and more. 
-    ! 
-    ! Waiting time distribution has been removed, and emission tracking has been added. 
-    ! Waiting time distribution will be calculated in post. 
-    !
-    ! 
-    ! ----------------------------------------------------------------------------------
 
     implicit none 
 
@@ -61,7 +50,6 @@ program main
     !
     ! START PROGRAM
     ! 
-    !
     ! -------------------------------------------------------------------
 
     ! Print initial stuff into console 
