@@ -15,7 +15,7 @@ program main
     integer (kind=8), parameter :: N = 100d0 
     integer (kind=8), parameter :: end_time = 5d0 
     integer (kind=8), parameter :: time_steps = 200000d0  
-    integer (kind=8), parameter :: num_of_simulations = 1d0
+    integer (kind=8), parameter :: num_of_simulations = 30d0
     real (kind=8), parameter :: pi = 3.14159265358979323846d0
     real (kind=8), parameter :: phase = pi !0.0d0 
     real (kind=8), parameter :: gammaL = 0.5d0 
@@ -248,72 +248,17 @@ program main
         end if 
 
         ! Prints simulation completions to console 
-        if (end_time >= 15) then 
-            print *, sim ,' simulations completed.'
-        else
-            if (mod(sim, 10) == 0) then 
-                print *, sim ,' simulations completed.'
-            end if     
-        end if 
+        ! if (end_time >= 15) then 
+        !     print *, sim ,' simulations completed.'
+        ! else
+        !     if (mod(sim, 10) == 0) then 
+        !         print *, sim ,' simulations completed.'
+        !     end if     
+        ! end if 
+
+        print *, sim ,' simulations completed.'
 
     end do 
-
-
-    ! Normalise by number of simulations 
-    eta_0 = eta_0 / num_of_simulations
-    xi_0 = xi_0 / num_of_simulations
-    eta_1 = eta_1 / num_of_simulations
-    xi_1 = xi_1 / num_of_simulations
-
-    spin_up_list = spin_up_list / num_of_simulations
-    spin_down_list = spin_down_list / num_of_simulations
-
-    ! Write out final results to a txt file 
-    open(1, file="results2/spin_up.dat", status="replace")
-    open(2, file="results2/spin_down.dat", status="replace")
-    open(3, file="results2/photon_counting.dat", status="replace")
-    open(4, file="results2/emission_tracking.dat", status="replace")
-
-    open(5, file="results2/eta_0.dat", status="replace")
-    open(6, file="results2/xi_0.dat", status="replace")
-    open(7, file="results2/eta_1.dat", status="replace")
-    open(8, file="results2/xi_1.dat", status="replace")
-
-    ! Writes spin up and down lists 
-    do index = 1,size(time_list)
-        write(1,*) time_list(index), spin_up_list(index)
-        write(2,*) time_list(index), spin_down_list(index)
-    end do 
-
-    ! Writes photon counting 
-    do index = 1,bin_width
-        write(3,*) photon_list(index)
-    end do 
-
-    ! Writes emission tracking 
-    do index1 = 1, num_of_simulations
-        do index2 = 1, tracking_bin_width
-            if (emission_tracking_list(index1, index2) == 0d0) then 
-                exit  
-            else
-                write(4,*) emission_tracking_list(index1, index2)
-            end if 
-        end do 
-
-        write(4,*) end_time + 50d0 
-
-    end do 
-
-    ! Writes coefficients 
-    do index = 1, time_steps
-        write(5,*) time_list(index), eta_0(index)
-        write(6,*) time_list(index), xi_0(index)
-        write(7,*) eta_1(:,index)
-        write(8,*) xi_1(:,index)
-    end do 
-
-    close(1); close(2); close(3); close(4)
-    close(5); close(6); close(7); close(8)
 
     call system_clock(end)
 
